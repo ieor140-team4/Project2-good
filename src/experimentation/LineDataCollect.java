@@ -50,7 +50,6 @@ public class LineDataCollect
    
    public void myCalibrate()
    {
-	   while (0 < Button.readButtons());
 	   Button.waitForAnyPress();
 	   _leftEye.calibrateLow();
        _rightEye.calibrateLow();

@@ -42,15 +42,19 @@ public class Tracker {
 	
 	
 	private boolean isBlue() {
-		return true;
+		return (!isWhite() && !isBlack());
 	}
 	
 	private boolean isWhite() {
-		return true;
+		
+		boolean sumIsHigh = sumValues() > 160;
+		boolean differenceIsHigh = (Math.abs(sumValues()) > 50);
+		
+		return (sumIsHigh || differenceIsHigh);
 	}
 	
 	private boolean isBlack() {
-		return false;
+		return sumValues() < 0;
 	}
 	
 	private void findLine() {
@@ -59,8 +63,36 @@ public class Tracker {
 	
 	public void trackLine() {
 		while (!isBlack()) {
-			dp.steer(-diffValues());
+
+	          LCD.drawInt(leftEye.readValue(), 4, 6, 1);
+	          LCD.drawInt(rightEye.readValue(), 4, 12, 2);
+			
+			if (isWhite()) {
+				dp.steer(-15*diffValues());
+			} else if (isBlue()){
+				dp.steer(-2 * diffValues());
+			}
 		}
+		
 	}
+	
+	   public void myCalibrate()
+	   {
+		   Delay.msDelay(10000);
+		   
+		   leftEye.calibrateLow();
+	       rightEye.calibrateLow();
+	       Sound.playTone(1000 + 200, 100);
+	       System.out.println("LOW: " + leftEye.getLow() + " " + rightEye.getLow());
+	       
+	       Delay.msDelay(5000);
+	       
+	       leftEye.calibrateHigh();
+	       rightEye.calibrateHigh();
+	       Sound.playTone(1000 + 200, 100);
+	       System.out.println("HIGH: " + leftEye.getHigh() + " " + rightEye.getHigh());
+	       
+	   }
+	   
 
 }

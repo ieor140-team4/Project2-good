@@ -3,13 +3,13 @@ package milestone1;
 import lejos.robotics.navigation.*;
 import lejos.nxt.*;
 import lejos.util.*;
+import experimentation.LineDataCollect;
 
 public class Milestone1 {
 
 	public static void main(String[] args){
 		
 		
-		Button.waitForAnyPress();
 
 		double trackWidth = 9.2 + 2.6;
 		double wheelDiam = 5.56;
@@ -21,12 +21,15 @@ public class Milestone1 {
 		
 		Tracker tracker = new Tracker(pilot, leftEye, rightEye, length);
 		
+		System.out.println("Begin calibration.");
+		tracker.myCalibrate();
+		System.out.println("Done with calibration. Press any button to begin.");
+
 		//tracker.myCalibrate();
+
+		System.out.println("\n\n\n\n\n\n\n");
 		
 		for (int i = 0; i < 8; i++) {
-
-	          LCD.drawInt(leftEye.readValue(), 4, 6, 1 + i);
-	          LCD.drawInt(rightEye.readValue(), 4, 12, 1 + i);
 			
 			tracker.trackLine();
 			pilot.travel(0.5*length);
