@@ -17,8 +17,8 @@ public class Tracker {
 		rightEye = rightLS;
 		
 		dp.setTravelSpeed(15);
-		dp.setRotateSpeed(180);
-		dp.setAcceleration(80);
+		dp.setRotateSpeed(360);
+		dp.setAcceleration(2000);
 		
 		sensorToAxleLength = length;
 	}
@@ -40,52 +40,59 @@ public class Tracker {
 		return leftval + rightval;
 	}
 	
-	
-	private boolean isBlue() {
-		return (!isWhite() && !isBlack());
-	}
-	
-	private boolean isWhite() {
-		
-		boolean sumIsHigh = sumValues() > 160;
-		boolean differenceIsHigh = (Math.abs(sumValues()) > 50);
-		
-		return (sumIsHigh || differenceIsHigh);
-	}
-	
-	private boolean isBlack() {
-		return sumValues() < 0;
-	}
-	
-	private void findLine() {
-		//rotate a little bit left and a little bit right to find the line
+	public int minValues() {
+		if (leftEye.readValue() > rightEye.readValue()) {
+			return rightEye.readValue();
+		} else {
+			return leftEye.readValue();
+		}
 	}
 	
 	public void trackLine() {
-		while (!isBlack()) {
-
-	          LCD.drawInt(leftEye.readValue(), 4, 6, 1);
-	          LCD.drawInt(rightEye.readValue(), 4, 12, 2);
-			
-			if (isWhite()) {
-				dp.steer(-15*diffValues());
-			} else if (isBlue()){
-				dp.steer(-2 * diffValues());
-			}
+		
+		boolean rightOfLine = false;
+		
+		float gainConstant = 1.0f;
+		
+		while (minValues() > -15) {
+			dp.steer(gainConstant * -1 * diffValues());
+			LCD.drawString("" + rightOfLine, 0, 0);
+			LCD.drawInt(leftEye.readValue(), 0, 1);
+			LCD.drawInt(rightEye.readValue(), 6, 1);
+			LCD.drawInt(diffValues(), 0, 2);
+			LCD.drawInt(sumValues(), 6, 2);
 		}
 		
+		
+		/*
+		while (sumValues() > -40) {
+			if ((sumValues() > 100) && (sumValues() < 150) && (diffValues() < 10)) {
+				dp.steer(0);
+			} else if (diffValues() >= 10) {
+				dp.steer(-10 * diffValues());
+				rightOfLine = diffValues() < 0; //because negative difference means we are right of line
+			} else if (sumValues() >= 150) {
+				if (rightOfLine) {
+					dp.steer(50);
+				} else {
+					dp.steer(-50);
+				}
+			}*/
+			
+		//}
 	}
 	
 	   public void myCalibrate()
 	   {
-		   Delay.msDelay(10000);
 		   
+		   Delay.msDelay(3000);
+
 		   leftEye.calibrateLow();
 	       rightEye.calibrateLow();
 	       Sound.playTone(1000 + 200, 100);
 	       System.out.println("LOW: " + leftEye.getLow() + " " + rightEye.getLow());
 	       
-	       Delay.msDelay(5000);
+	       Delay.msDelay(2000);
 	       
 	       leftEye.calibrateHigh();
 	       rightEye.calibrateHigh();
