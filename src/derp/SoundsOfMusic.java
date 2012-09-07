@@ -38,6 +38,7 @@ public class SoundsOfMusic {
 		Sound.playNote(Sound.PIANO, D, 200);
 		Sound.playNote(Sound.PIANO, C, 500);
 		Button.waitForAnyPress();
+		//new comment!
 		//C, C, C, D, E, E, D, E, F, G. CCC, GGG, EEE, CCC, G, F, E, D, C.
 	}
 
