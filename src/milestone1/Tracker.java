@@ -81,11 +81,39 @@ public class Tracker {
 	 * then rotate.
 	 */
 	public void rotateTo(double newHeading, boolean move) {
+		
+		//We take off multiples of 360 so that the new heading is in 0<x<360
+		while (newHeading >= 360) {
+			newHeading -= 360;
+		}
+		while (newHeading <= -360) {
+			newHeading += 360;
+		}
+		
+		
 		if (move) {
 			dp.travel(sensorToAxleLength); //travel so that the axle is above the black square
 		}
-		dp.rotate(newHeading - heading); //now we rotate.
+		
+		//Finds the shortest angle to rotate through in order to make the turn.
+		double rotationAngle = newHeading - heading;
+		if (Math.abs(rotationAngle) > 180) {
+			if (rotationAngle > 0) {
+				rotationAngle -= 360;
+			} else {
+				rotationAngle += 360;
+			}
+		}
+		dp.rotate(rotationAngle); //now we rotate.
+		
+		//Now we set the heading to where we face now, and take off multiples of 360.
 		heading = newHeading;
+		while (heading >= 360) {
+			heading -= 360;
+		}
+		while (heading <= -360) {
+			heading += 360;
+		}
 	}
 	
 	/* This method tells the tracker to cross a black square that just stopped our
