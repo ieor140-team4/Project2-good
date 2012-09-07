@@ -4,11 +4,16 @@ import lejos.nxt.*;
 import lejos.util.*;
 import lejos.robotics.navigation.*;
 
+/* This class represents the tracker that our robot uses to track the line.
+ * The tasks that this class needs to perform are various measurements of the error
+ * that we observe, as well as a trackLine() method that monitors this error and
+ * uses a gain constant to control it in a stable system.
+ */
 public class Tracker {
 	
-	private DifferentialPilot dp;
-	private LightSensor leftEye;
-	private LightSensor rightEye;
+	private DifferentialPilot dp; //the pilot used
+	private LightSensor leftEye; //the left light sensor
+	private LightSensor rightEye; // the right light sensor
 	private double sensorToAxleLength;
 	
 	//Initializes our tracker with the pilot, two "eyes", and the length between
