@@ -15,6 +15,7 @@ public class Tracker {
 	private LightSensor leftEye; //the left light sensor
 	private LightSensor rightEye; // the right light sensor
 	private double sensorToAxleLength;
+	private double heading; //the direction in angles from starting orientation that the robot is heading.
 	
 	//Initializes our tracker with the pilot, two "eyes", and the length between
 	//The light sensors and the wheel axle.
@@ -28,6 +29,8 @@ public class Tracker {
 		dp.setAcceleration(2000);
 		
 		sensorToAxleLength = length;
+		
+		heading = 0;
 	}
 	
 	//Take the difference between the values seen.
@@ -72,12 +75,21 @@ public class Tracker {
 		}
 		
 	}
+
+	/*This method should be called when the robot has just seen a black square
+	 * and now needs to move forwards so its axle is directly above the black square,
+	 * then rotate.
+	 */
+	public void rotateTo(double newHeading) {
+		dp.travel(sensorToAxleLength); //travel so that the axle is above the black square
+		dp.rotate(newHeading - heading); //now we rotate.
+		heading = newHeading;
+	}
 	
 	
 	//A calibration method that we use to get our robot's eyes calibrated. Essentially the
 	//same as the calibration method given to us.
-	   public void myCalibrate()
-	   {
+	   public void myCalibrate() {
 		   
 		   Delay.msDelay(3000);
 
