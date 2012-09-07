@@ -11,6 +11,8 @@ public class Tracker {
 	private LightSensor rightEye;
 	private double sensorToAxleLength;
 	
+	//Initializes our tracker with the pilot, two "eyes", and the length between
+	//The light sensors and the wheel axle.
 	public Tracker(DifferentialPilot pilot, LightSensor leftLS, LightSensor rightLS, double length) {
 		dp = pilot;
 		leftEye = leftLS;
@@ -23,6 +25,7 @@ public class Tracker {
 		sensorToAxleLength = length;
 	}
 	
+	//Take the difference between the values seen.
 	private int diffValues() {
 		int leftval = leftEye.readValue();
 		int rightval = rightEye.readValue();
@@ -33,6 +36,7 @@ public class Tracker {
 		return diff;
 	}
 	
+	//Take the sum of the values the eyes see.
 	private int sumValues() {
 		int leftval = leftEye.readValue();
 		int rightval = rightEye.readValue();
@@ -40,6 +44,7 @@ public class Tracker {
 		return leftval + rightval;
 	}
 	
+	//Take the minimum of the two values the eyes see.
 	public int minValues() {
 		if (leftEye.readValue() > rightEye.readValue()) {
 			return rightEye.readValue();
@@ -50,38 +55,22 @@ public class Tracker {
 	
 	public void trackLine() {
 		
-		boolean rightOfLine = false;
-		
+		//This gain constant worked well.
 		float gainConstant = 1.0f;
 		
+		
+		//This loop goes while no eye sees a value <-15, which should mean the blue lines.
+		//The loop exits when an eye sees a low value, which means we're on a black line and
+		//the Milestone1.main() method can handle us for now.
 		while (minValues() > -15) {
 			dp.steer(gainConstant * -1 * diffValues());
-			LCD.drawString("" + rightOfLine, 0, 0);
-			LCD.drawInt(leftEye.readValue(), 0, 1);
-			LCD.drawInt(rightEye.readValue(), 6, 1);
-			LCD.drawInt(diffValues(), 0, 2);
-			LCD.drawInt(sumValues(), 6, 2);
 		}
 		
-		
-		/*
-		while (sumValues() > -40) {
-			if ((sumValues() > 100) && (sumValues() < 150) && (diffValues() < 10)) {
-				dp.steer(0);
-			} else if (diffValues() >= 10) {
-				dp.steer(-10 * diffValues());
-				rightOfLine = diffValues() < 0; //because negative difference means we are right of line
-			} else if (sumValues() >= 150) {
-				if (rightOfLine) {
-					dp.steer(50);
-				} else {
-					dp.steer(-50);
-				}
-			}*/
-			
-		//}
 	}
 	
+	
+	//A calibration method that we use to get our robot's eyes calibrated. Essentially the
+	//same as the calibration method given to us.
 	   public void myCalibrate()
 	   {
 		   
