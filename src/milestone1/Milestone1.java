@@ -79,7 +79,6 @@ public class Milestone1 {
 			//Second straight line + left turn
 			tracker.trackLine();
 			Sound.playTone(1400,30);
-			pilot.travel(length);
 			tracker.rotateTo(180);
 			
 			
