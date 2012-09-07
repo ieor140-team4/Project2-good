@@ -43,27 +43,18 @@ public class Milestone1 {
 			
 			tracker.trackLine();
 			Sound.playTone(1200,100); //Beeps for audio feedback
+			tracker.crossBlack();
 			
-			//Now we need to get off the black dot, so we continue going forward until
-			//the minimum of the values is > -10, which should mean we're on the blue line again.
-			while (tracker.minValues() < -10) {
-				pilot.steer(0);
-			}
 		}
 		
 		//Now it rotates 180 degrees and does 4 laps the other way.
-		pilot.rotate(180);
+		tracker.rotateTo(180);
 		
 		for (int i = 0; i < 8; i++) {
 			
 			tracker.trackLine();
 			Sound.playTone(1200,100);
-
-			//Now we need to get off the black dot, so we continue going forward until
-			//the minimum of the values is > -10, which should mean we're on the blue line again.
-			while (tracker.minValues() < -10) {
-				pilot.steer(0);
-			}
+			tracker.crossBlack();
 		}
 		
 		//Now we do 4 figure eights. In each figure eight we go halfway around the track,
@@ -73,26 +64,23 @@ public class Milestone1 {
 			//Semi circle + left turn
 			tracker.trackLine();
 			Sound.playTone(1400,30);
-			pilot.travel(length);
-			pilot.rotate(90);
+			tracker.rotateTo(270);
 			
 			//First straight line + right turn
 			tracker.trackLine();
 			Sound.playTone(1400,30);
-			pilot.travel(length);
-			pilot.rotate(-90);
+			tracker.rotateTo(180);
 			
 			//Semi circle + right turn
 			tracker.trackLine();
 			Sound.playTone(1400,30);
-			pilot.travel(length);
-			pilot.rotate(-90);
+			tracker.rotateTo(90);
 			
 			//Second straight line + left turn
 			tracker.trackLine();
 			Sound.playTone(1400,30);
 			pilot.travel(length);
-			pilot.rotate(90);
+			tracker.rotateTo(180);
 			
 			
 		}

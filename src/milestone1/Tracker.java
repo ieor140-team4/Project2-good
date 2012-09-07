@@ -86,6 +86,15 @@ public class Tracker {
 		heading = newHeading;
 	}
 	
+	/* This method tells the tracker to cross a black square that just stopped our
+	 * navigation. As long as we still see black, we keep just moving forward.
+	 */
+	public void crossBlack() {
+		while (minValues() < -10) {
+			dp.steer(0);
+		}
+	}
+	
 	
 	//A calibration method that we use to get our robot's eyes calibrated. Essentially the
 	//same as the calibration method given to us.
