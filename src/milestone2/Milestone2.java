@@ -46,11 +46,11 @@ public class Milestone2 {
 			tracker.crossBlack();
 			tracker.trackLine();
 			//This will rotate 90 degrees each time since the increment over the last heading is 90.
-			tracker.rotateTo(90 * (i+1));
+			tracker.rotateTo(90 * (i+1), true);
 		}
 		
 		
-		tracker.rotateTo(90);
+		tracker.rotateTo(90, false);
 		
 		//2 squares * 4 sides/square = 8 sides
 		for (int i = 0; i < 8; i++) {
@@ -59,7 +59,7 @@ public class Milestone2 {
 			tracker.crossBlack();
 			tracker.trackLine();
 			//This will rotate 90 degrees each time since the increment over the last heading is 90.
-			tracker.rotateTo(-90 * i);
+			tracker.rotateTo(-90 * i, true);
 		}
 	}
 

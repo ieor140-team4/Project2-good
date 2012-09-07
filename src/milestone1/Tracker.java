@@ -80,8 +80,10 @@ public class Tracker {
 	 * and now needs to move forwards so its axle is directly above the black square,
 	 * then rotate.
 	 */
-	public void rotateTo(double newHeading) {
-		dp.travel(sensorToAxleLength); //travel so that the axle is above the black square
+	public void rotateTo(double newHeading, boolean move) {
+		if (move) {
+			dp.travel(sensorToAxleLength); //travel so that the axle is above the black square
+		}
 		dp.rotate(newHeading - heading); //now we rotate.
 		heading = newHeading;
 	}

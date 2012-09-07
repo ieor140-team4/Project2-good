@@ -48,7 +48,7 @@ public class Milestone1 {
 		}
 		
 		//Now it rotates 180 degrees and does 4 laps the other way.
-		tracker.rotateTo(180);
+		tracker.rotateTo(180, true);
 		
 		for (int i = 0; i < 8; i++) {
 			
@@ -64,22 +64,22 @@ public class Milestone1 {
 			//Semi circle + left turn
 			tracker.trackLine();
 			Sound.playTone(1400,30);
-			tracker.rotateTo(270);
+			tracker.rotateTo(270, true);
 			
 			//First straight line + right turn
 			tracker.trackLine();
 			Sound.playTone(1400,30);
-			tracker.rotateTo(180);
+			tracker.rotateTo(180, true);
 			
 			//Semi circle + right turn
 			tracker.trackLine();
 			Sound.playTone(1400,30);
-			tracker.rotateTo(90);
+			tracker.rotateTo(90, true);
 			
 			//Second straight line + left turn
 			tracker.trackLine();
 			Sound.playTone(1400,30);
-			tracker.rotateTo(180);
+			tracker.rotateTo(180, true);
 			
 			
 		}
