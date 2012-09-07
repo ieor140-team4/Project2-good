@@ -18,7 +18,7 @@ public class Milestone2 {
 		LightSensor rightEye = new LightSensor(SensorPort.S4);
 		
 		//Assign the axle-to-sensor distance so that our robot knows how far to go.
-		double length = 6.9;
+		double length = 7.0;
 		
 		
 		//Assign a tracker.
@@ -46,7 +46,7 @@ public class Milestone2 {
 			tracker.crossBlack();
 			tracker.trackLine();
 			//This will rotate 90 degrees each time since the increment over the last heading is 90.
-			tracker.rotateTo(90 * (i+1), true);
+			tracker.rotate(90, true);
 		}
 		
 		
@@ -59,7 +59,24 @@ public class Milestone2 {
 			tracker.crossBlack();
 			tracker.trackLine();
 			//This will rotate 90 degrees each time since the increment over the last heading is 90.
-			tracker.rotateTo(-90 * i, true);
+			tracker.rotate(-90, true);
+		}
+		
+		
+		for (int i = 0; i < 4; i++) {
+			tracker.trackLine();
+			tracker.crossBlack();
+			tracker.trackLine();
+			if (i < 3 ) {
+			tracker.rotate(180, true);
+			}
+		}
+		
+		for (int i = 0; i < 4; i++) {
+			tracker.trackLine();
+			tracker.crossBlack();
+			tracker.trackLine();
+			tracker.rotate(-180, true);
 		}
 	}
 

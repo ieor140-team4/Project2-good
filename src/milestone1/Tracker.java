@@ -44,6 +44,11 @@ public class Tracker {
 		return diff;
 	}
 	
+	//Used to reset the heading to 0, which makes some things easier.
+	public void resetHeading() {
+		heading = 0;
+	}
+	
 	//Take the sum of the values the eyes see.
 	private int sumValues() {
 		int leftval = leftEye.readValue();
@@ -73,6 +78,8 @@ public class Tracker {
 		while (minValues() > -15) {
 			dp.steer(gainConstant * -1 * diffValues());
 		}
+
+	       Sound.playNote(Sound.PIANO, 1200, 50);
 		
 	}
 
@@ -83,10 +90,10 @@ public class Tracker {
 	public void rotateTo(double newHeading, boolean move) {
 		
 		//We take off multiples of 360 so that the new heading is in 0<x<360
-		while (newHeading >= 360) {
+		while (newHeading > 360) {
 			newHeading -= 360;
 		}
-		while (newHeading <= -360) {
+		while (newHeading < -360) {
 			newHeading += 360;
 		}
 		
@@ -108,19 +115,27 @@ public class Tracker {
 		
 		//Now we set the heading to where we face now, and take off multiples of 360.
 		heading = newHeading;
-		while (heading >= 360) {
+		while (heading > 360) {
 			heading -= 360;
 		}
-		while (heading <= -360) {
+		while (heading < -360) {
 			heading += 360;
 		}
+	}
+	
+	
+	public void rotate(double angle, boolean move) {
+		if (move) {
+			dp.travel(sensorToAxleLength);
+		}
+		dp.rotate(angle);
 	}
 	
 	/* This method tells the tracker to cross a black square that just stopped our
 	 * navigation. As long as we still see black, we keep just moving forward.
 	 */
 	public void crossBlack() {
-		while (minValues() < -10) {
+		while (minValues() < -5) {
 			dp.steer(0);
 		}
 	}

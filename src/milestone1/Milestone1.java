@@ -43,18 +43,16 @@ public class Milestone1 {
 			
 			tracker.trackLine();
 			Sound.playTone(1200,100); //Beeps for audio feedback
-			tracker.crossBlack();
 			
 		}
 		
 		//Now it rotates 180 degrees and does 4 laps the other way.
-		tracker.rotateTo(180, true);
+		tracker.rotateTo(180, false);
 		
 		for (int i = 0; i < 8; i++) {
 			
 			tracker.trackLine();
 			Sound.playTone(1200,100);
-			tracker.crossBlack();
 		}
 		
 		//Now we do 4 figure eights. In each figure eight we go halfway around the track,
