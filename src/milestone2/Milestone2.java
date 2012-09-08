@@ -62,20 +62,29 @@ public class Milestone2 {
 			tracker.rotate(-90, true);
 		}
 		
-		
+		//Now we do the circuits of the line. 2 circuits * 2 "sides" = 4
 		for (int i = 0; i < 4; i++) {
+			
+			//Go forward (2,0).
 			tracker.trackLine();
 			tracker.crossBlack();
 			tracker.trackLine();
+			
+			//Turn on all but the last leg of the circuit so we can be oriented correctly
+			//to circuit between (2,0) and (0,0).
 			if (i < 3 ) {
 			tracker.rotate(180, true);
 			}
 		}
 		
+		//Now the other circuits.
 		for (int i = 0; i < 4; i++) {
+			//Go forward (2,0).
 			tracker.trackLine();
 			tracker.crossBlack();
 			tracker.trackLine();
+			
+			//Rotate at the end of each leg.
 			tracker.rotate(-180, true);
 		}
 	}
