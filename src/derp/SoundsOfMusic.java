@@ -7,7 +7,7 @@ public class SoundsOfMusic {
 	 * @param args
 	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		
 		int C = 262, D = 294, E = 330, F = 349, G = 392, A = 440, B = 494, hC = 523;
 		

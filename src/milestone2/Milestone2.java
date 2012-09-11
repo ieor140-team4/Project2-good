@@ -3,7 +3,6 @@ package milestone2;
 import essentials.*;
 import lejos.robotics.navigation.*;
 import lejos.nxt.*;
-import milestone1.Tracker;
 
 public class Milestone2 {
 
