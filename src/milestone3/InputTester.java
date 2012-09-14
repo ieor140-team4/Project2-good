@@ -12,7 +12,7 @@ public class InputTester {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ButtonInputter bi = new ButtonInputter();
-		Point x = bi.display();
+		Point x = bi.display(0,0);
 		System.out.println("Saved point: (" + x.x + "," +  x.y + ") !!!!");
 		Button.waitForAnyPress();
 	}
