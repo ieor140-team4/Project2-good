@@ -24,9 +24,9 @@ public class ObstacleDetector {
 		if (distance < 30) {
 			listener.objectFound(new PolarPoint(1, 0)); //This represents 1 unit distance away
 		} else if (distance < 60) {
-			listener.objectFound(new PolarPoint(2, 0)); //2 unit distances away.
-		} else if (distance < 90) {
-			listener.objectFound(new PolarPoint(3, 0)); //3 unit distances away.
+			listener.objectFound(new PolarPoint(2, 0)); //2 units
+		} else if (distance < 100) {
+			listener.objectFound(new PolarPoint(3, 0));
 		}
 	}
 

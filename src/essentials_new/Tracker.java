@@ -127,6 +127,19 @@ public class Tracker {
 		dp.stop();
 	}
 	
+	/**
+	 * Rotate function without an option to move or not.
+	 * @param angle
+	 */
+	public void rotate(double angle) {
+		dp.rotate(angle);
+	}
+	
+	/**
+	 * Rotate function with an option to move or not.
+	 * @param angle
+	 * @param move
+	 */
 	public void rotate(double angle, boolean move) {
 		if (move) {
 			dp.travel(sensorToAxleLength);
@@ -146,14 +159,14 @@ public class Tracker {
 	//same as the calibration method given to us.
 	   public void myCalibrate() {
 		   
-		   Delay.msDelay(3000);
+		   Button.waitForAnyPress();
 
 		   leftEye.calibrateLow();
 	       rightEye.calibrateLow();
 	       Sound.playTone(1000 + 200, 100);
 	       System.out.println("LOW: " + leftEye.getLow() + " " + rightEye.getLow());
 	       
-	       Delay.msDelay(2000);
+	       Button.waitForAnyPress();
 	       
 	       leftEye.calibrateHigh();
 	       rightEye.calibrateHigh();
