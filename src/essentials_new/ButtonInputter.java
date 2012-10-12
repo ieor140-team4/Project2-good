@@ -22,10 +22,15 @@ public class ButtonInputter {
 	}
 	
 	
-	/* Takes in x and y so that it knows where the robot is currently.
+	/**
+	*  Takes in x and y so that it knows where the robot is currently.
 	*  Then displays input that allows the user to input x and y coordinates
 	*  that the robot will navigate to. This method then returns a Point object
 	*  which corresponds to the Point the user entered for navigation.
+	*  
+	*  @param xPos - the x position of the robot
+	*  @param yPos - the y position of the robot
+	*  @return the point that we tell the robot to go to, (x,y)
 	*/
 	public Point display(int xPos, int yPos) {
 		while(true){
@@ -59,7 +64,8 @@ public class ButtonInputter {
 		}
 	}
 	
-	/* Displays the screen and menu according to which function
+	/**
+	 * Displays the screen and menu according to which function
 	 * is being focused on. First, a blank menu is printed and then
 	 * arrows are overlaid on it that show which function the user
 	 * is "looking" at.
@@ -85,7 +91,8 @@ public class ButtonInputter {
 	}
 	
 	
-	/* This method changes x or y when the user increases or decreases
+	/**
+	*  This method changes x or y when the user increases or decreases
 	*  them in the menu. Since we are working with a 6x8 grid, x ranges
 	*  from 0 to 5 and y ranges from 0 to 7. If the number would go below 0,
 	*  it wraps around to the maximum instead, and vice versa. The argument
@@ -124,7 +131,10 @@ public class ButtonInputter {
 		}
 	}
 
-	//Passes the currently inputted x and y into a Point object.
+	/**
+	 * Passes the currently inputted x and y into a Point object.
+	 * @return a Point object that the current inputs indicate
+	 */
 	private Point save() {
 		return new Point(x, y);
 	}

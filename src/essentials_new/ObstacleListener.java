@@ -14,6 +14,7 @@ public interface ObstacleListener {
 	 * obstacle, whether through a touch sensor or an ultrasonic sensor.
 	 * 
 	 * @param objectLocation the location of the object in polar coordinates
+	 * @return true if a new object is found, false otherwise
 	 */
-	public void objectFound(PolarPoint objectLocation);
+	public boolean objectFound(PolarPoint objectLocation);
 }

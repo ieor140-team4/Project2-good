@@ -77,14 +77,28 @@ public class Grid {
 		
 	}
 	
+	/**
+	 * 
+	 * @return the number of x entries in the grid
+	 */
 	public int getWidth() {
 		return nodes.length;
 	}
 	
+	/**
+	 * 
+	 * @return the number of y entries in the grid
+	 */
 	public int getHeight() {
 		return nodes[0].length;
 	}
 	
+	/**
+	 * 
+	 * @param n the node that we're finding the neighbors of
+	 * @return the neighbors in an array. neighbors[0] is the node to the right (positive x),
+	 * neighbors[3] is the node below (negative y)
+	 */
 	public Node[] getNeighborsToNode(Node n) {
 		Node[] neighbors = new Node[4];
 		if (n.getX() > 0) {

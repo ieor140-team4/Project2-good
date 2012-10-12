@@ -17,8 +17,14 @@ public class Tracker {
 	private double sensorToAxleLength;
 	private double heading; //the direction in angles from starting orientation that the robot is heading.
 	
-	//Initializes our tracker with the pilot, two "eyes", and the length between
-	//The light sensors and the wheel axle.
+	/**
+	 * Initializes our tracker
+	 * 
+	 * @param pilot the differential pilot used to steer
+	 * @param leftLS the left light sensor
+	 * @param rightLS the right light sensor
+	 * @param length the length from the light sensors to the axle
+	 */
 	public Tracker(DifferentialPilot pilot, LightSensor leftLS, LightSensor rightLS, double length) {
 		dp = pilot;
 		leftEye = leftLS;
@@ -33,7 +39,10 @@ public class Tracker {
 		heading = 0;
 	}
 	
-	//Take the difference between the values seen.
+	/**
+	 * 
+	 * @return the difference between the values seen by the two eyes
+	 */
 	private int diffValues() {
 		int leftval = leftEye.readValue();
 		int rightval = rightEye.readValue();
@@ -44,12 +53,17 @@ public class Tracker {
 		return diff;
 	}
 	
-	//Used to reset the heading to 0, which makes some things easier.
+	/**
+	 * Sets the heading of the tracker to 0.
+	 */
 	public void resetHeading() {
 		heading = 0;
 	}
 	
-	//Take the sum of the values the eyes see.
+	/**
+	 * @return the sum of the values the eyes see.
+	 * 
+	 */
 	private int sumValues() {
 		int leftval = leftEye.readValue();
 		int rightval = rightEye.readValue();
@@ -57,7 +71,10 @@ public class Tracker {
 		return leftval + rightval;
 	}
 	
-	//Take the minimum of the two values the eyes see.
+	/**
+	 * 
+	 * @return the minimum of the two values the eyes see.
+	 */
 	public int minValues() {
 		if (leftEye.readValue() > rightEye.readValue()) {
 			return rightEye.readValue();
@@ -65,7 +82,11 @@ public class Tracker {
 			return leftEye.readValue();
 		}
 	}
-	
+
+	/**
+	 * Tracks the blue line until we see a black square. When this method exits,
+	 * the robot's light sensors are directly above the black square.
+	 */
 	public void trackLine() {
 		
 		//This gain constant worked well.
@@ -83,9 +104,16 @@ public class Tracker {
 		
 	}
 
-	/*This method should be called when the robot has just seen a black square
-	 * and now needs to move forwards so its axle is directly above the black square,
-	 * then rotate.
+	/**
+	 * This method rotates the robot to a certain new heading, given in
+	 * degrees from 0 to 360.
+	 * 
+	 * @param newHeading the heading we want to rotate to, where 0 is the positive x
+	 * direction and 180 is the negative x direction. Can handle negative angles and angles
+	 * above 360, as well.
+	 * 
+	 * @param move true if the robot should move before making the turn so that the axle
+	 * is above the black square as opposed to the light sensors, false otherwise
 	 */
 	public void rotateTo(double newHeading, boolean move) {
 		
@@ -147,16 +175,21 @@ public class Tracker {
 		dp.rotate(angle);
 	}
 	
-	/* This method tells the tracker to cross a black square that just stopped our
-	 * navigation. As long as we still see black, we keep just moving forward.
+	/**
+	 * This method tells the tracker to cross a black square that just stopped our
+	 * navigation. It moves a set distance so that the center of the axle is now over
+	 * the black square, as opposed to our light sensors.
 	 */
 	public void crossBlack() {
 		dp.travel(sensorToAxleLength);
 	}
 	
 	
-	//A calibration method that we use to get our robot's eyes calibrated. Essentially the
-	//same as the calibration method given to us.
+	/**
+	 * A calibration method that we use to get our robot's eyes calibrated. Essentially the
+	 * same as the calibration method given to us.
+	 * 
+	 */
 	   public void myCalibrate() {
 		   
 		   Button.waitForAnyPress();
