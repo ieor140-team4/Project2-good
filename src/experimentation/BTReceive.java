@@ -31,23 +31,16 @@ public class BTReceive {
          OutputStream os = btc.openOutputStream();
          DataInputStream dis = new DataInputStream(is);
          DataOutputStream dos = new DataOutputStream(os);
-         int[] data = new int[10];
-         for(int k = 0 ; k<10; k++)
-         {
-            for(int i=0;i<10;i++) 
-            {
-               int ii = dis.readInt();
-               data[i] = ii;
-               LCD.drawInt(ii,4,0,i%8);
-            }
-            LCD.refresh();
-            for(int i = 0 ; i<10 ; i++)
-            {
-               dos.writeInt(-data[i]);
-               LCD.drawInt(i,0,14,0);
-            }
-            dos.flush();// without this, no data is sent. 
-         }
+         int x = dis.readInt();
+         int y = dis.readInt();
+         
+         LCD.drawInt(x,4,0,y%8);
+         LCD.refresh();
+         // dos.writeInt(-data[i]);
+         // LCD.drawInt(i,0,14,0);
+
+         dos.flush();// without this, no data is sent. 
+         
          dis.close();
          dos.close();
          btc.close();
