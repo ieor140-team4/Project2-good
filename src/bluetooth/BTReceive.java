@@ -33,12 +33,13 @@ public class BTReceive {
          System.out.println("Data Input Stream opened.");
          DataOutputStream dos = new DataOutputStream(os);
          System.out.println("Data Output Stream opened.");
-         int x = dis.readInt();
+         System.out.print(dis.readUTF());
+         /* int x = dis.readInt();
          System.out.println("int x read");
          int y = dis.readInt();
          System.out.println("int y read");
          
-         System.out.println(x + " " + y);
+         System.out.println(x + " " + y); */
          // dos.writeInt(x);
          // System.out.println("");
          // dos.writeInt(y);
