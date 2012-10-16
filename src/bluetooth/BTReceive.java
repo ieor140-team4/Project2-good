@@ -30,13 +30,20 @@ public class BTReceive {
          InputStream is = btc.openInputStream();
          OutputStream os = btc.openOutputStream();
          DataInputStream dis = new DataInputStream(is);
+         System.out.println("Data Input Stream opened.");
          DataOutputStream dos = new DataOutputStream(os);
+         System.out.println("Data Output Stream opened.");
          int x = dis.readInt();
+         System.out.println("int x read");
          int y = dis.readInt();
+         System.out.println("int y read");
          
          System.out.println(x + " " + y);
+         // dos.writeInt(x);
+         // System.out.println("");
+         // dos.writeInt(y);
+         // System.out.println(".3");
          // LCD.drawInt(x,4,0,y%8);
-         LCD.refresh();
          // dos.writeInt(-data[i]);
          // LCD.drawInt(i,0,14,0);
 
