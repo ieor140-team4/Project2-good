@@ -53,9 +53,12 @@ public class BTCommunicator {
 	   System.out.println("Data stream opened.");
    }
    
-   public void send() throws IOException {  
-       //System.out.println(x + " " + y);
-
+   public void send(int header, int x, int y) throws IOException {  
+	   // send point at or obstacles found
+	   dos.writeInt(header);
+	   dos.writeInt(x);
+	   dos.writeInt(y);
+	   //dos.write
        dos.flush(); 
    }
    

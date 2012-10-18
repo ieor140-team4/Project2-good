@@ -6,7 +6,7 @@ public class GridNavigator implements ObstacleListener {
 
 	private Tracker tracker;
 	private Grid grid;
-	private Node position;
+	protected Node position;
 	private ObstacleDetector detector;
 	private int heading; //0, 1, 2, or 3. Corresponds to that * 90.
 
@@ -39,6 +39,7 @@ public class GridNavigator implements ObstacleListener {
 
 		while (position.getDistance() > 0) {
 			detector.scanForObstacles();
+			
 
 			Node[] neighbors = grid.getNeighborsToNode(position);
 			int shortestDistance = 1000;
@@ -87,11 +88,19 @@ public class GridNavigator implements ObstacleListener {
 
 			tracker.trackLine();
 			tracker.crossBlack();
-			position = destination;
+			updateRobotPosition(destination);
 		}
 
 	}
 
+	public void updateObstaclePosition(Node obstacleNode) {
+		obstacleNode.block();
+	}
+	
+	public void updateRobotPosition(Node destination) {
+		position = destination;
+	}
+	
 	/**
 	 * 
 	 * @return the x coordinate of the grid navigator's current position
@@ -150,7 +159,8 @@ public class GridNavigator implements ObstacleListener {
 		if (((obstacleX < grid.getWidth()) && (obstacleY < grid.getHeight()))
 				&& (obstacleX >= 0) && (obstacleY >= 0)){
 			if (!grid.nodes[obstacleX][obstacleY].isBlocked()) {
-				grid.nodes[obstacleX][obstacleY].block();
+				Node obstacleNode = grid.nodes[obstacleX][obstacleY];
+				updateObstaclePosition(obstacleNode);
 				grid.recalc();
 				
 				if (objectLocation.dist == 1) {

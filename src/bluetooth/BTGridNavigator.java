@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import essentials_new.GridNavigator;
+import essentials_new.Node;
 import essentials_new.ObstacleDetector;
 import essentials_new.Tracker;
 
@@ -21,6 +22,26 @@ public class BTGridNavigator extends GridNavigator {
 			return bt.receive();
 		} catch (IOException e) {
 			return null;
+		}
+	}
+	
+	public void updateObstaclePosition(Node obstacleNode) {
+		obstacleNode.block();
+		try {
+			bt.send(1, obstacleNode.getX(), obstacleNode.getY());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateRobotPosition(Node destination) {
+		position = destination;
+		try {
+			bt.send(0,  position.getX(), position.getY());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
