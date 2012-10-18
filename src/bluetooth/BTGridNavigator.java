@@ -56,6 +56,9 @@ public class BTGridNavigator extends GridNavigator {
 			}
 			
 			moveTo(destination.x, destination.y);
+			
+			System.out.println("Moved! Waiting for new destination.");
+			destination = null;
 		}
 	}
 	
