@@ -12,11 +12,25 @@ public class BTGridNavigator extends GridNavigator {
 
 	private BTCommunicator bt;
 
+	/** 
+	 * An updated constructor. Takes in the tracker and detector like GridNavigator,
+	 * as well as a BTCommunicator to handle the newfangled bluetooth communications.
+	 * 
+	 * @param tracker
+	 * @param detector
+	 * @param comm
+	 */
 	public BTGridNavigator(Tracker tracker, ObstacleDetector detector, BTCommunicator comm) {
 		super(tracker, detector);
 		bt = comm;
 	}
 
+	/**
+	 * Waits to receive a point from the bluetooth communication, if an exception
+	 * occurs returns null.
+	 * 
+	 * @return the received point
+	 */
 	public Point getDestination() {
 		try {
 			return bt.receive();
@@ -25,6 +39,10 @@ public class BTGridNavigator extends GridNavigator {
 		}
 	}
 	
+	/**
+	 * Blocks the specified node, and tells the computer that the node has been blocked.
+	 * 
+	 */
 	public void updateObstaclePosition(Node obstacleNode) {
 		obstacleNode.block();
 		try {
@@ -35,6 +53,9 @@ public class BTGridNavigator extends GridNavigator {
 		}
 	}
 	
+	/** 
+	 * Updates the robot position, and tells the computer the robot's new position.
+	 */
 	public void updateRobotPosition(Node destination) {
 		position = destination;
 		try {
@@ -45,6 +66,13 @@ public class BTGridNavigator extends GridNavigator {
 		}
 	}
 
+	/**
+	 * Runs stuff.
+	 * 
+	 * Continuously waits to receive new destination instructions from the computer,
+	 * then moves there. Etc etc etc
+	 * 
+	 */
 	public void go() {
 
 		Point destination = null;
@@ -60,14 +88,6 @@ public class BTGridNavigator extends GridNavigator {
 			System.out.println("Moved! Waiting for new destination.");
 			destination = null;
 		}
-	}
-	
-	/**
-	 * 
-	 * @return true if the send is a success, false otherwise
-	 */
-	public boolean sendData() {
-		return true;
 	}
 
 }

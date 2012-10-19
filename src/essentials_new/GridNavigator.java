@@ -93,10 +93,20 @@ public class GridNavigator implements ObstacleListener {
 
 	}
 
+	/**
+	 * Updates the status of the node containing the obstacle.
+	 * 
+	 * @param obstacleNode the obstacle node to block
+	 */
 	public void updateObstaclePosition(Node obstacleNode) {
 		obstacleNode.block();
 	}
 	
+	/**
+	 * Updates the destination that the grid navigator has stored.
+	 * 
+	 * @param destination the node that we are now at
+	 */
 	public void updateRobotPosition(Node destination) {
 		position = destination;
 	}

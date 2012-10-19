@@ -11,12 +11,22 @@ import lejos.nxt.LCD;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 
+/**
+ * A class to handle communication between the robot and the computer
+ * 
+ * @author raymondma
+ *
+ */
 public class BTCommunicator {
 	
    private BTConnection btc;
    private DataInputStream dis;
    private DataOutputStream dos;
    
+   /**
+    * Creates a BTCommunicator object and connects it to the computer,
+    * then sets up the data streams and such.
+    */
    public BTCommunicator() {
 	   connect();
 	   
@@ -29,6 +39,9 @@ public class BTCommunicator {
 	   System.out.println("Data stream opened.");
    }
    
+   /**
+    * Establishes a bluetooth connection with the computer.
+    */
    public void connect() {
 	   String waiting = "Waiting for connection...";
 	   String connected = "Connected!";
@@ -43,16 +56,14 @@ public class BTCommunicator {
        LCD.refresh();	
    }
    
-   public void open() {
-	   OutputStream os = btc.openOutputStream();
-       dos = new DataOutputStream(os);
-       
-       InputStream is = btc.openInputStream();
-	   dis = new DataInputStream(is);
-	   
-	   System.out.println("Data stream opened.");
-   }
-   
+   /**
+    * Sends a message to the computer specified by header, x, and y
+    * 
+    * @param header 0 if location info, 1 if obstacle info
+    * @param x        the x coordinate of the information
+    * @param y        the y coordinate of the information
+    * @throws IOException
+    */
    public void send(int header, int x, int y) throws IOException {  
 	   // send point at or obstacles found
 	   dos.writeInt(header);
@@ -62,6 +73,12 @@ public class BTCommunicator {
        dos.flush(); 
    }
    
+   /** 
+    * Obtains a point from the computer
+    * 
+    * @return a point object corresponding to the x,y sent by the computer
+    * @throws IOException
+    */
    public Point receive() throws IOException {
 	   
 	   int x = dis.readInt();
@@ -70,6 +87,11 @@ public class BTCommunicator {
        return new Point(x, y);
    }
    
+   /**
+    * Exits stuff.
+    * 
+    * @throws IOException
+    */
    public void exit() throws IOException {
        dis.close();
        dos.close();
